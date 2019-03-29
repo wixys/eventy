@@ -1,11 +1,21 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from './store/store'
 import BaseIcon from '@/components/BaseIcon'
-
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
+import 'nprogress/nprogress.css'
+import Vuelidate from 'vuelidate'
+import DateFilter from './filters/date'
+
+Vue.filter('date', DateFilter)
+
+Vue.use(Vuelidate)
+
+Vue.component('BaseIcon', BaseIcon)
+
+Vue.config.productionTip = false
 
 const requireComponent = require.context(
   // The relative path of the components folder
@@ -41,8 +51,6 @@ requireComponent.keys().forEach(fileName => {
     componentConfig.default || componentConfig
   )
 })
-
-Vue.config.productionTip = false
 
 new Vue({
   router,
